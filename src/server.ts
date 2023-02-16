@@ -1,8 +1,11 @@
 import express, { Request, Response } from "express";
 import mainRouts from "./routes";
 import painelRouts from "./routes/painel";
+import path from "path";
 
 const server = express();
+
+server.use(express.static(path.join(__dirname, "../public")));
 
 server.use(mainRouts);
 
