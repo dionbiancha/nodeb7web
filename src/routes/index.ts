@@ -16,7 +16,7 @@ router.get("/", (req: Request, res: Response) => {
     showOld = true;
   }
 
-  res.render("home", {
+  res.render("pages/home", {
     name,
     showOld,
     products,
@@ -24,11 +24,34 @@ router.get("/", (req: Request, res: Response) => {
 });
 
 router.get("/contato", (req: Request, res: Response) => {
-  res.send("Formulario de contato");
+  res.render("pages/contato");
 });
 
 router.get("/sobre", (req: Request, res: Response) => {
-  res.send("Pagina institucional sobre a empresa");
+  res.render("pages/sobre");
+});
+
+router.get("/nome", (req: Request, res: Response) => {
+  let nome: string = req.query.nome as string;
+  let idade: string = req.query.idade as string;
+
+  res.render("pages/nome", {
+    nome,
+    idade,
+  });
+});
+
+router.get("/idade", (req: Request, res: Response) => {
+  let mostrarIdade: boolean = false;
+  let idade: number = 0;
+  if (req.query.ano) {
+    let anoNascimento: number = parseInt(req.query.ano as string);
+    let anoAtual: number = new Date().getFullYear();
+    idade = anoAtual - anoNascimento;
+    mostrarIdade = true;
+  }
+
+  res.render("pages/idade", { idade, mostrarIdade });
 });
 
 export default router;
